@@ -6,7 +6,7 @@ Lost.Entity.Entity = function (x, y, image, frames) {
     if (x === undefined) { return; }
     this.commandQueue = [];
 
-    this.sprite = Lost.Game.add.sprite(x, y, image);
+    this.sprite = Lost.Game.add.sprite(x * Lost.Config.tileSize, y * Lost.Config.tileSize, image);
     this.sprite.animations.add('walk', frames);
     this.sprite.animations.play('walk', 2, true);
 
@@ -16,6 +16,7 @@ Lost.Entity.Entity = function (x, y, image, frames) {
     this.y = y;
 
     this.destroyed = false;
+    this.attacking = false;
 
     Lost.Entities.push(this);
 };
@@ -25,6 +26,14 @@ Lost.Entity.Entity.prototype.update = function () {
         this.sprite.kill();
         this.sprite.destroy();
         this.destroyed = true;
+    }
+
+    if (this.sprite.x != this.x * Lost.Config.tileSize) {
+        this.sprite.x = this.x * Lost.Config.tileSize;
+    }
+
+    if (this.sprite.y != this.y * Lost.Config.tileSize) {
+        this.sprite.y = this.y * Lost.Config.tileSize;
     }
 };
 
@@ -86,5 +95,25 @@ Lost.Entity.Entity.prototype.checkCollision = function (dir) {
             break;
     }
 
-    return (x < 0 || y < 0) || Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
+    var collided = (x < 0 ||
+            y < 0 ||
+            x > Lost.CityRogue.Map.collisionLayer.widthInPixels ||
+            y > Lost.CityRogue.Map.collisionLayer.heightInPixels);
+
+    if (collided) {
+        return true;
+    }
+
+    var collisionTile = Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
+    var doorTile = Lost.CityRogue.Map.doorLayer.layer.data[y][x];
+    if (collisionTile) {
+        collided = true;
+    } else if (doorTile) {
+        Lost.CityRogue.Map.openDoorLayer.layer.data[y][x] = Lost.CityRogue.Map.doorLayer.layer.data[y][x] + 1;
+        Lost.CityRogue.Map.doorLayer.layer.data[y][x] = 0;
+        Lost.CityRogue.Map.redrawDoorLayer();
+        collided = true;
+    }
+
+    return collided;
 };
