@@ -10,7 +10,7 @@ Lost.Entity.Entity = function (x, y, image, frames) {
     this.sprite.animations.add('walk', frames);
     this.sprite.animations.play('walk', 2, true);
 
-    this.hp = 10;
+    this.hp = 20;
 
     this.x = x;
     this.y = y;
@@ -69,22 +69,22 @@ Lost.Entity.Entity.prototype.addCommand = function (command, turnsUntil) {
 Lost.Entity.Entity.prototype.checkCollision = function (dir) {
     switch (dir) {
         case "up":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y - Lost.Config.tileSize);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y - Lost.Config.tileSize);
             break;
         case "down":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y + Lost.Config.tileSize);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y + Lost.Config.tileSize);
             break;
         case "left":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x - Lost.Config.tileSize);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x - Lost.Config.tileSize);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y);
             break;
         case "right":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x + Lost.Config.tileSize);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x + Lost.Config.tileSize);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y);
             break;
     }
 
-    return Lost.CollisionLayer.layer.data[y][x];
+    return (x < 0 || y < 0) || Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
 };

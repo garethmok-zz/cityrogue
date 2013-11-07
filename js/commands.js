@@ -39,3 +39,30 @@ Lost.Command.takeDamage = function (damage) {
         }
     }
 }
+
+Lost.Command.moveRandom = {
+    execute: function (unit) {
+        var dirs = ["up", "down", "left", "right"];
+        var dirIdx = Math.floor(Math.random() * dirs.length);
+        var iterations = 0;
+        while (iterations < 20 && unit.checkCollision(dirs[dirIdx])) {
+            dirIdx = Math.floor(Math.random() * dirs.length);
+            iterations++;
+        }
+
+        switch(dirs[dirIdx]) {
+            case "up":
+                Lost.Command.moveUp.execute(unit);
+                break;
+            case "down":
+                Lost.Command.moveDown.execute(unit);
+                break;
+            case "left":
+                Lost.Command.moveLeft.execute(unit);
+                break;
+            case "right":
+                Lost.Command.moveRight.execute(unit);
+                break;
+        }
+    }
+}

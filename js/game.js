@@ -1,31 +1,27 @@
-var player, map, tileset, bglayer, itemlayer, cursors;
+Lost.namespace('CityRogue');
+var cursors;
 
-var game = new Phaser.Game(640, 480, Phaser.AUTO, 'main', {preload: preload, create: create, update: update});
-
-Lost.Game = game;
+Lost.Game = new Phaser.Game(640, 480, Phaser.AUTO, 'main', {preload: preload, create: create, update: update});
 
 function preload () {
-    game.load.tilemap('map1', 'maps/map1.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.tileset('tiles', 'images/oryx_16bit_fantasy_world.png', Lost.Config.tileSize, Lost.Config.tileSize);
-    game.load.spritesheet('creatures', 'images/oryx_16bit_fantasy_creatures_trans.png', Lost.Config.tileSize, Lost.Config.tileSize);
+    Lost.Game.load.tilemap('map1', 'maps/map1.json', null, Phaser.Tilemap.TILED_JSON);
+    Lost.Game.load.tileset('tiles', 'images/oryx_16bit_fantasy_world.png', Lost.Config.tileSize, Lost.Config.tileSize);
+    Lost.Game.load.spritesheet('creatures', 'images/oryx_16bit_fantasy_creatures_trans.png', Lost.Config.tileSize, Lost.Config.tileSize);
 }
 
 function create () {
-    Lost.Map = game.add.tilemap('map1');
-    tileset = game.add.tileset('tiles');
-
-    bglayer = game.add.tilemapLayer(0, 0, 640, 480, tileset, Lost.Map, 0);
-    bglayer.resizeWorld();
-
-    Lost.CollisionLayer = game.add.tilemapLayer(0, 0, 640, 480, tileset, Lost.Map, 1);
+    Lost.CityRogue.Map = new Lost.World.Map('map1', 'tiles', 0, 1);
 
     Lost.Player = new Lost.Entity.Player();
+    Lost.Game.camera.follow(Lost.Player.sprite);
 
-    var enemy = new Lost.Entity.Enemy(24, 24);
+    var enemies = [new Lost.Entity.Enemy(24, 24),
+                    new Lost.Entity.Enemy(24, 48),
+                    new Lost.Entity.Enemy(120, 24),
+                    new Lost.Entity.Enemy(24, 120),
+                    new Lost.Entity.Enemy(148, 148)];
 
-    game.camera.follow(Lost.Player.sprite);
-
-    cursors = game.input.keyboard.createCursorKeys();
+    cursors = Lost.Game.input.keyboard.createCursorKeys();
 }
 
 var keyHeld = false;
