@@ -15,7 +15,11 @@ function create () {
     Lost.Player = new Lost.Entity.Player();
     Lost.Game.camera.follow(Lost.Player.sprite);
 
-    var enemy = new Lost.Entity.Enemy(24, 24);
+    var enemies = [new Lost.Entity.Enemy(24, 24),
+                    new Lost.Entity.Enemy(24, 48),
+                    new Lost.Entity.Enemy(120, 24),
+                    new Lost.Entity.Enemy(24, 120),
+                    new Lost.Entity.Enemy(148, 148)];
 
     cursors = Lost.Game.input.keyboard.createCursorKeys();
 }

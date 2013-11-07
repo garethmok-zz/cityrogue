@@ -10,7 +10,7 @@ Lost.Entity.Entity = function (x, y, image, frames) {
     this.sprite.animations.add('walk', frames);
     this.sprite.animations.play('walk', 2, true);
 
-    this.hp = 10;
+    this.hp = 20;
 
     this.x = x;
     this.y = y;
@@ -86,5 +86,5 @@ Lost.Entity.Entity.prototype.checkCollision = function (dir) {
             break;
     }
 
-    return Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
+    return (x < 0 || y < 0) || Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
 };
