@@ -69,22 +69,22 @@ Lost.Entity.Entity.prototype.addCommand = function (command, turnsUntil) {
 Lost.Entity.Entity.prototype.checkCollision = function (dir) {
     switch (dir) {
         case "up":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y - Lost.Config.tileSize);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y - Lost.Config.tileSize);
             break;
         case "down":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y + Lost.Config.tileSize);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y + Lost.Config.tileSize);
             break;
         case "left":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x - Lost.Config.tileSize);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x - Lost.Config.tileSize);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y);
             break;
         case "right":
-            var x = Lost.CollisionLayer.getTileX(this.sprite.x + Lost.Config.tileSize);
-            var y = Lost.CollisionLayer.getTileY(this.sprite.y);
+            var x = Lost.CityRogue.Map.collisionLayer.getTileX(this.sprite.x + Lost.Config.tileSize);
+            var y = Lost.CityRogue.Map.collisionLayer.getTileY(this.sprite.y);
             break;
     }
 
-    return Lost.CollisionLayer.layer.data[y][x];
+    return Lost.CityRogue.Map.collisionLayer.layer.data[y][x];
 };
