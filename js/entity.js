@@ -28,12 +28,29 @@ Lost.Entity.Entity.prototype.update = function () {
         this.destroyed = true;
     }
 
-    if (this.sprite.x != this.x * Lost.Config.tileSize) {
-        this.sprite.x = this.x * Lost.Config.tileSize;
+    if (this.sprite.x > this.x * Lost.Config.tileSize) {
+        this.animating = true;
+        this.sprite.x -= 2;
     }
 
-    if (this.sprite.y != this.y * Lost.Config.tileSize) {
-        this.sprite.y = this.y * Lost.Config.tileSize;
+    if (this.sprite.x < this.x * Lost.Config.tileSize) {
+        this.animating = true;
+        this.sprite.x += 2;
+    }
+
+    if (this.sprite.y > this.y * Lost.Config.tileSize) {
+        this.animating = true;
+        this.sprite.y -= 2;
+    }
+
+    if (this.sprite.y < this.y * Lost.Config.tileSize) {
+        this.animating = true;
+        this.sprite.y += 2;
+    }
+
+    if (this.sprite.y == this.y * Lost.Config.tileSize &&
+        this.sprite.x == this.x * Lost.Config.tileSize) {
+        this.animating = false;
     }
 };
 

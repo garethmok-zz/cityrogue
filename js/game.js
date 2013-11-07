@@ -24,62 +24,64 @@ function create () {
     cursors = Lost.Game.input.keyboard.createCursorKeys();
 }
 
-var keyHeld = false;
 var takeTurn = false;
+var animating = false;
 
 function update () {
-    if (cursors.up.isDown)
+    if (!animating && cursors.up.isDown)
     {
-        if (!keyHeld) {
-            keyHeld = true;
-            takeTurn = true;
-            Lost.Player.move('up');
+        keyHeld = true;
+        takeTurn = true;
+        Lost.Player.move('up');
+    }
+    else if (!animating && cursors.down.isDown)
+    {
+        keyHeld = true;
+        takeTurn = true;
+        Lost.Player.move('down');
+    }
+    else if (!animating && cursors.left.isDown)
+    {
+        keyHeld = true;
+        takeTurn = true;
+        Lost.Player.move('left');
+    }
+    else if (!animating && cursors.right.isDown)
+    {
+        keyHeld = true;
+        takeTurn = true;
+        Lost.Player.move('right');
+    }
+
+    var destroyed = [];
+
+    var thisPassAnimating = false;
+
+    for (var i = 0; i < Lost.Entities.length; i++) {
+        if (takeTurn) {
+            Lost.Entities[i].takeTurn();
+        }
+
+        Lost.Entities[i].update();
+
+        if (takeTurn && Lost.Entities[i].destroyed) {
+            destroyed.push(Lost.Entities[i]);
+        }
+
+        if (Lost.Entities[i].animating) {
+            thisPassAnimating = true;
         }
     }
-    else if (cursors.down.isDown)
-    {
-        if (!keyHeld) {
-            keyHeld = true;
-            takeTurn = true;
-            Lost.Player.move('down');
-        }
-    }
-    else if (cursors.left.isDown)
-    {
-        if (!keyHeld) {
-            keyHeld = true;
-            takeTurn = true;
-            Lost.Player.move('left');
-        }
-    }
-    else if (cursors.right.isDown)
-    {
-        if (!keyHeld) {
-            keyHeld = true;
-            takeTurn = true;
-            Lost.Player.move('right');
-        }
-    } else {
-        keyHeld = false;
-    }
+
+    animating = thisPassAnimating;
 
     if (takeTurn) {
-        var destroyed = [];
-
-        for (var i = 0; i < Lost.Entities.length; i++) {
-            Lost.Entities[i].takeTurn();
-            Lost.Entities[i].update();
-            if (Lost.Entities[i].destroyed) {
-                destroyed.push(Lost.Entities[i]);
-            }
-        }
-
         for (i = 0; i < destroyed.length; i++) {
             Lost.Entities.splice(Lost.Entities.indexOf(destroyed[i]), 1);
             destroyed[i] = null;
         }
+    }    
 
-        destroyed = null;
-        takeTurn = false;
-    }
+    destroyed = null;
+    takeTurn = false;
 }
