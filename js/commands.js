@@ -37,7 +37,7 @@ Lost.Command.takeDamage = function (damage) {
         execute: function(unit) {
             unit.hp -= damage;
             unit.attacking = true;
-            console.log(unit.__proto__ + "HP: " + unit.hp);
+            console.log("HP: " + unit.hp);
         }
     }
 }

@@ -1,7 +1,7 @@
 Lost.namespace('CityRogue');
 var cursors;
 
-Lost.Game = new Phaser.Game(640, 480, Phaser.AUTO, 'main', {preload: preload, create: create, update: update});
+Lost.Game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'main', {preload: preload, create: create, update: update});
 
 function preload () {
     Lost.Game.load.tilemap('map1', 'maps/map1.json', null, Phaser.Tilemap.TILED_JSON);
