@@ -10,16 +10,16 @@ function preload () {
 }
 
 function create () {
-    Lost.CityRogue.Map = new Lost.World.Map('map1', 'tiles', 0, 1);
+    Lost.CityRogue.Map = new Lost.World.Map('map1', 'tiles');
 
     Lost.Player = new Lost.Entity.Player();
     Lost.Game.camera.follow(Lost.Player.sprite);
 
-    var enemies = [new Lost.Entity.Enemy(24, 24),
-                    new Lost.Entity.Enemy(24, 48),
-                    new Lost.Entity.Enemy(120, 24),
-                    new Lost.Entity.Enemy(24, 120),
-                    new Lost.Entity.Enemy(148, 148)];
+    var enemies = [new Lost.Entity.Enemy(1, 1),
+                    new Lost.Entity.Enemy(1, 2),
+                    new Lost.Entity.Enemy(5, 1),
+                    new Lost.Entity.Enemy(1, 5),
+                    new Lost.Entity.Enemy(6, 6)];
 
     cursors = Lost.Game.input.keyboard.createCursorKeys();
 }
