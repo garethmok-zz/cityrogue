@@ -22,10 +22,31 @@ function create () {
                     new Lost.Entity.Enemy(9, 24)];
 
     cursors = Lost.Game.input.keyboard.createCursorKeys();
+    Lost.CityRogue.Map.bglayer.events.onInputDown.add(touchInput, this);
 }
 
 var takeTurn = false;
 var animating = false;
+
+function touchInput() {
+    var map = Lost.CityRogue.Map.bglayer;
+    var x = map.getTileX(map.input._tempPoint.x);
+    var y = map.getTileY(map.input._tempPoint.y);
+
+    if (Lost.Player.x == x && Lost.Player.y - 1 == y) {
+        takeTurn = true;
+        Lost.Player.move('up');
+    } else if (Lost.Player.x == x && Lost.Player.y + 1 == y) {
+        takeTurn = true;
+        Lost.Player.move('down');
+    } else if (Lost.Player.x + 1 == x && Lost.Player.y == y) {
+        takeTurn = true;
+        Lost.Player.move('right');
+    } else if (Lost.Player.x - 1 == x && Lost.Player.y == y) {
+        takeTurn = true;
+        Lost.Player.move('left');
+    }
+}
 
 function update () {
     if (!animating && cursors.up.isDown)

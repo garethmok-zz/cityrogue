@@ -37,7 +37,13 @@ Lost.Command.takeDamage = function (damage) {
         execute: function(unit) {
             unit.hp -= damage;
             unit.attacking = true;
-            console.log("HP: " + unit.hp);
+            var id = "";
+            if (unit instanceof Lost.Entity.Player) {
+                id = "Player";
+            } else {
+                id = "Enemy";
+            }
+            console.log(id + " HP: " + unit.hp);
         }
     }
 }

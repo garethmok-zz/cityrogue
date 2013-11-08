@@ -1,3 +1,3 @@
 Lost.namespace('Config');
 
-Lost.Config.tileSize = 24;
+Lost.Config.tileSize = 48;

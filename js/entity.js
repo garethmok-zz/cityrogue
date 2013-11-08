@@ -2,15 +2,18 @@ Lost.namespace('Entity');
 
 Lost.Entities = [];
 
-Lost.Entity.Entity = function (x, y, image, frames) {
+Lost.Entity.Entity = function (x, y, image, frames, hp) {
     if (x === undefined) { return; }
     this.commandQueue = [];
 
     this.sprite = Lost.Game.add.sprite(x * Lost.Config.tileSize, y * Lost.Config.tileSize, image);
+    this.sprite.animations.add('idle', [frames[0]]);
     this.sprite.animations.add('walk', frames);
-    this.sprite.animations.play('walk', 2, true);
+    this.sprite.animations.play('walk', 4, true);
 
-    this.hp = 20;
+    hp = hp || 20;
+    this.totalhp = hp;
+    this.hp = hp;
 
     this.x = x;
     this.y = y;
@@ -30,22 +33,22 @@ Lost.Entity.Entity.prototype.update = function () {
 
     if (this.sprite.x > this.x * Lost.Config.tileSize) {
         this.animating = true;
-        this.sprite.x -= 2;
+        this.sprite.x -= Lost.Config.tileSize / 12;
     }
 
     if (this.sprite.x < this.x * Lost.Config.tileSize) {
         this.animating = true;
-        this.sprite.x += 2;
+        this.sprite.x += Lost.Config.tileSize / 12;
     }
 
     if (this.sprite.y > this.y * Lost.Config.tileSize) {
         this.animating = true;
-        this.sprite.y -= 2;
+        this.sprite.y -= Lost.Config.tileSize / 12;
     }
 
     if (this.sprite.y < this.y * Lost.Config.tileSize) {
         this.animating = true;
-        this.sprite.y += 2;
+        this.sprite.y += Lost.Config.tileSize / 12;
     }
 
     if (this.sprite.y == this.y * Lost.Config.tileSize &&

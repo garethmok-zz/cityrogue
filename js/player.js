@@ -1,12 +1,15 @@
 Lost.namespace('Entity');
 
 Lost.Entity.Player = function () {
-    Lost.Entity.Entity.call(this, 2, 2, 'creatures', [24, 44]);
-    this.hp = 100;
+    Lost.Entity.Entity.call(this, 2, 2, 'creatures', [24, 44], 100);
 };
 
 Lost.Entity.Player.prototype = new Lost.Entity.Entity();
 Lost.Entity.Player.prototype.constructor = Lost.Entity.Player;
+
+Lost.Entity.Player.prototype.update = function () {
+    Lost.Entity.Entity.prototype.update.call(this);
+};
 
 Lost.Entity.Player.prototype.move = function (dir) {
     var occupied = false;

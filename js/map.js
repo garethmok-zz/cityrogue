@@ -11,9 +11,10 @@ Lost.World.Map = function (tilemap, tileset) {
     this.doorLayer = Lost.Game.add.tilemapLayer(0, 0, window.innerWidth, window.innerHeight, this.tileset, this.map, 4);
 
     this.bglayer.resizeWorld();
+    this.bglayer.inputEnabled = true;
 };
 
 Lost.World.Map.prototype.redrawDoorLayer = function () {
     this.doorLayer.dirty = true;
     this.openDoorLayer.dirty = true;
-}
+};
