@@ -30,8 +30,8 @@ var animating = false;
 
 function touchInput() {
     var map = Lost.CityRogue.Map.bglayer;
-    var x = map.getTileX(map.input._tempPoint.x);
-    var y = map.getTileY(map.input._tempPoint.y);
+    var x = map.getTileX(map.input._tempPoint.x + Lost.Game.camera.x);
+    var y = map.getTileY(map.input._tempPoint.y + Lost.Game.camera.y);
 
     if (Lost.Player.x == x && Lost.Player.y - 1 == y) {
         takeTurn = true;
